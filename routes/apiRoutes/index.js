@@ -1,6 +1,7 @@
 const path = require("path");
 const router = require("express").Router();
 const fs = require('fs');
+const uuid = require('uuid');
 const notes = require('../../db/db');
 
 router.get('/notes', (req,res) => res.json(notes));
@@ -9,6 +10,7 @@ router.get('/notes', (req,res) => res.json(notes));
 router.post('/notes', (req,res) => {
   // get new note and push to note array
   let newNote = req.body;
+  newNote.id = uuid.v4();
   notes.push(newNote);
 
   // write to database file
